@@ -40,6 +40,7 @@ class Api {
                 email: element['email'],
                 password: element['password'],
                 age: int.parse(element['age']),
+                id: int.parse(element['id']),
               ))
             });
         print(person);
@@ -53,4 +54,22 @@ class Api {
       return [];
     }
   }
+
+  static updatePerson(id, body1) async {
+    var url = Uri.parse(baseUrl + "updateuser/$id");
+    try {
+      final res = await http.put(url, body: body1);
+      if (res.statusCode == 200) {
+        var data = jsonDecode(res.body);
+        print(data);
+        print('Success update');
+      } else {
+        print('Failed to load DATA !');
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
 }
+
+// update person

@@ -57,11 +57,16 @@ class _UpdateDataPageState extends State<UpdateData> {
                                   child: ListTile(
                                       leading: Icon(Icons.person),
                                       title: Text(
-                                          '${index + 1} Name : ${person[index].name}Age : ${person[index].age.toString()}'),
+                                          '${index + 1} Name : ${person[index].id.toString()}    Age : ${person[index].age.toString()}'),
                                       subtitle: Text(
                                           'Email : ${person[index].email}'),
                                       trailing: IconButton(
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            Navigator.of(context).pushNamed(
+                                              '/edit',
+                                              arguments: person[index],
+                                            );
+                                          },
                                           icon: Icon(Icons.edit_sharp))),
                                 ),
                               ),

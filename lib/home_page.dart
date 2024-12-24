@@ -49,7 +49,9 @@ class _HomePageState extends State<HomePage> {
                   Padding(padding: EdgeInsets.only(top: 20)),
                   SizedBox(height: 20),
                   ElevatedButton.icon(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/update');
+                      },
                       icon: Icon(Icons.update),
                       label: Text('Update')),
                   Padding(padding: EdgeInsets.only(top: 20)),
