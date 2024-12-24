@@ -26,6 +26,50 @@ class _EditeScreenPageState extends State<EditeScreen> {
     passwordController.text = widget.data.password.toString();
   }
 
+  Future<void> _showConfirmationDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Confirm Update'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text('Are you sure you want to update this user?'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text('Cancel'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: Text('Update'),
+              onPressed: () async {
+                if (widget.data.id != null) {
+                  await Api.updatePerson(widget.data.id!, {
+                    'pname': nameController.text,
+                    'page': ageController.text,
+                    'pemail': emailController.text,
+                    'ppassword': passwordController.text,
+                  });
+                  Navigator.pushNamed(context, '/');
+                } else {
+                  // Handle the case where id is null
+                  print('Error: User ID is null');
+                }
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -121,20 +165,7 @@ class _EditeScreenPageState extends State<EditeScreen> {
                   ),
                   SizedBox(height: 80),
                   ElevatedButton.icon(
-                      onPressed: () async {
-                        if (widget.data.id != null) {
-                          await Api.updatePerson(widget.data.id!, {
-                            'pname': nameController.text,
-                            'page': ageController.text,
-                            'pemail': emailController.text,
-                            'ppassword': passwordController.text,
-                          });
-                          Navigator.of(context).pop();
-                        } else {
-                          // Handle the case where id is null
-                          print('Error: User ID is null');
-                        }
-                      },
+                      onPressed: _showConfirmationDialog,
                       icon: Icon(Icons.create, color: Colors.blue),
                       label: Text(
                         'Update',
