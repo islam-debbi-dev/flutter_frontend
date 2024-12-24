@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/delete_data.dart';
 import 'package:frontend/home_page.dart';
 import 'package:frontend/create.dart';
 import 'package:frontend/update_data.dart';
@@ -14,4 +15,5 @@ final Map<String, WidgetBuilder> appRoutes = {
   '/update': (context) => UpdateData(),
   '/edit': (context) => EditeScreen(
       data: ModalRoute.of(context)!.settings.arguments as PersonModel),
+  '/delete': (context) => DeleteData(),
 };

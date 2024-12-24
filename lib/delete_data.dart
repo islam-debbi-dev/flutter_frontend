@@ -3,14 +3,14 @@ import 'package:frontend/models/person_model.dart';
 
 import 'services/api.dart';
 
-class DisplayData extends StatefulWidget {
-  const DisplayData({super.key});
+class DeleteData extends StatefulWidget {
+  const DeleteData({super.key});
 
   @override
-  State<DisplayData> createState() => _DisplayDataPageState();
+  State<DeleteData> createState() => _DeleteDataPageState();
 }
 
-class _DisplayDataPageState extends State<DisplayData> {
+class _DeleteDataPageState extends State<DeleteData> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,14 +55,18 @@ class _DisplayDataPageState extends State<DisplayData> {
                                     borderRadius: BorderRadius.circular(30),
                                   ),
                                   child: ListTile(
-                                    leading: Icon(Icons.person),
-                                    title: Text(
-                                        '${index + 1} Name : ${person[index].name}'),
-                                    subtitle:
-                                        Text('Email : ${person[index].email}'),
-                                    trailing:
-                                        Text('Age : ${person[index].age}'),
-                                  ),
+                                      leading: Icon(Icons.person),
+                                      title: Text(
+                                          '${index + 1} Name : ${person[index].name}    Age : ${person[index].age.toString()}'),
+                                      subtitle: Text(
+                                          'Email : ${person[index].email}'),
+                                      trailing: IconButton(
+                                          onPressed: () {
+                                            Api.deletePerson(person[index].id);
+                                            person.removeAt(index);
+                                            setState(() {});
+                                          },
+                                          icon: Icon(Icons.delete))),
                                 ),
                               ),
                             );
@@ -88,7 +92,7 @@ class _DisplayDataPageState extends State<DisplayData> {
             Container(
               padding: EdgeInsets.only(top: 15, left: 150),
               child: Text(
-                ' Users ',
+                ' delete data',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 30,

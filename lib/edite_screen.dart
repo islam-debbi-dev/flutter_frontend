@@ -121,13 +121,19 @@ class _EditeScreenPageState extends State<EditeScreen> {
                   ),
                   SizedBox(height: 80),
                   ElevatedButton.icon(
-                      onPressed: () {
-                        Api.updatePerson(widget.data.id, {
-                          'pname': nameController.text,
-                          'page': ageController.text,
-                          'pemail': emailController.text,
-                          'ppassword': passwordController.text,
-                        });
+                      onPressed: () async {
+                        if (widget.data.id != null) {
+                          await Api.updatePerson(widget.data.id!, {
+                            'pname': nameController.text,
+                            'page': ageController.text,
+                            'pemail': emailController.text,
+                            'ppassword': passwordController.text,
+                          });
+                          Navigator.of(context).pop();
+                        } else {
+                          // Handle the case where id is null
+                          print('Error: User ID is null');
+                        }
                       },
                       icon: Icon(Icons.create, color: Colors.blue),
                       label: Text(

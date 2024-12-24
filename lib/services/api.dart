@@ -39,8 +39,8 @@ class Api {
                 name: element['name'],
                 email: element['email'],
                 password: element['password'],
-                age: int.parse(element['age']),
-                id: int.parse(element['id']),
+                age: element['age'],
+                id: element['id'],
               ))
             });
         print(person);
@@ -55,21 +55,36 @@ class Api {
     }
   }
 
-  static updatePerson(id, body1) async {
+  static Future<void> updatePerson(String id, Map<String, String> pdata) async {
     var url = Uri.parse(baseUrl + "updateuser/$id");
     try {
-      final res = await http.put(url, body: body1);
+      final res = await http.put(url, body: pdata);
       if (res.statusCode == 200) {
-        var data = jsonDecode(res.body);
+        var data = jsonDecode(res.body.toString());
         print(data);
-        print('Success update');
+        print('Update Success');
       } else {
-        print('Failed to load DATA !');
+        print('Update Failed');
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
+
+  // delete method for delete data
+  static Future<void> deletePerson(id) async {
+    var url = Uri.parse(baseUrl + "deleteuser/$id");
+    try {
+      final res = await http.delete(url);
+      if (res.statusCode == 200) {
+        var data = jsonDecode(res.body.toString());
+        print(data);
+        print('Delete Success');
+      } else {
+        print('Delete Failed');
       }
     } catch (e) {
       debugPrint(e.toString());
     }
   }
 }
-
-// update person

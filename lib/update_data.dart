@@ -57,7 +57,7 @@ class _UpdateDataPageState extends State<UpdateData> {
                                   child: ListTile(
                                       leading: Icon(Icons.person),
                                       title: Text(
-                                          '${index + 1} Name : ${person[index].id.toString()}    Age : ${person[index].age.toString()}'),
+                                          '${index + 1} Name : ${person[index].name}    Age : ${person[index].age.toString()}'),
                                       subtitle: Text(
                                           'Email : ${person[index].email}'),
                                       trailing: IconButton(

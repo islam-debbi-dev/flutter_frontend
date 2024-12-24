@@ -57,7 +57,9 @@ class _HomePageState extends State<HomePage> {
                   Padding(padding: EdgeInsets.only(top: 20)),
                   SizedBox(height: 20),
                   ElevatedButton.icon(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/delete');
+                      },
                       icon: Icon(Icons.delete),
                       label: Text('Delete')),
                   Padding(padding: EdgeInsets.only(top: 20)),
